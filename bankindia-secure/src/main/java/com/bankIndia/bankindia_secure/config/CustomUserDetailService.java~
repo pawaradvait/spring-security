@@ -1,0 +1,4 @@
+package com.bankIndia.bankindia_secure.config;
+
+public class CustomUserDetailService {
+}

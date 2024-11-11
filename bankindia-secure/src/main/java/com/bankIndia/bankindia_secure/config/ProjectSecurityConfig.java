@@ -26,19 +26,17 @@ public class ProjectSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> {
 requests.requestMatchers("/getAccount").authenticated();
-requests.requestMatchers("/notices").permitAll();
+requests.requestMatchers("/notices" , "/user").permitAll();
         });
 
         http.formLogin(flc -> flc.defaultSuccessUrl("/getAccount"));
         http.httpBasic(Customizer.withDefaults());
+        http.csrf(csrf -> csrf.disable()) ;
         return (SecurityFilterChain)http.build();
     }
 
 
-    @Bean
-    UserDetailsService usingjdbduserdetail(DataSource dataSource){
-        return new JdbcUserDetailsManager(dataSource);
-    }
+
 
 
     @Bean

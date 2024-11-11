@@ -1,0 +1,7 @@
+package com.bankIndia.bankindia_secure.repo;
+
+import com.bankIndia.bankindia_secure.model.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CustomerRepo extends JpaRepository<Customer, Long> {
+}
