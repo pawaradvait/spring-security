@@ -1,5 +1,6 @@
 package com.bankIndia.bankindia_secure.config;
 
+import com.bankIndia.bankindia_secure.exceptionHandling.CustomAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.password.CompromisedPasswordChecker;
@@ -30,7 +31,9 @@ requests.requestMatchers("/notices" , "/user").permitAll();
         });
 
         http.formLogin(flc -> flc.defaultSuccessUrl("/getAccount"));
-        http.httpBasic(Customizer.withDefaults());
+        http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomAuthenticationEntryPoint())); //when we throw exception using this inside http basic then
+        //it will throw exception  only during  login using basic authentication
+        //http.exception( // we can throw this exception globally)
         http.csrf(csrf -> csrf.disable()) ;
         return (SecurityFilterChain)http.build();
     }

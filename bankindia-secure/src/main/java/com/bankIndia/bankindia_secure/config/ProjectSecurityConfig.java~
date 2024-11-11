@@ -1,5 +1,6 @@
 package com.bankIndia.bankindia_secure.config;
 
+import com.bankIndia.bankindia_secure.exceptionHandling.CustomAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.password.CompromisedPasswordChecker;
@@ -30,8 +31,8 @@ requests.requestMatchers("/notices" , "/user").permitAll();
         });
 
         http.formLogin(flc -> flc.defaultSuccessUrl("/getAccount"));
-        http.httpBasic(Customizer.withDefaults());
-        http.csrf(csrf -> csrf.disable())
+        http.httpBasic(hbc -> hbc.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
+        http.csrf(csrf -> csrf.disable()) ;
         return (SecurityFilterChain)http.build();
     }
 
