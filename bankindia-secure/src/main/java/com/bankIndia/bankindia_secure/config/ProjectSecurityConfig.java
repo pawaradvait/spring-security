@@ -25,9 +25,12 @@ public class ProjectSecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
+        http.sessionManagement(smc -> smc.invalidSessionUrl("/error").maximumSessions(1).maxSessionsPreventsLogin(true));
+
         http.authorizeHttpRequests((requests) -> {
 requests.requestMatchers("/getAccount").authenticated();
-requests.requestMatchers("/notices" , "/user").permitAll();
+requests.requestMatchers("/notices" , "/user" ,"/error").permitAll();
         });
 
         http.formLogin(flc -> flc.defaultSuccessUrl("/getAccount"));
