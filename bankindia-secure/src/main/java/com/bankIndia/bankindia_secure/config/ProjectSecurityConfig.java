@@ -26,7 +26,13 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.sessionManagement(smc -> smc.invalidSessionUrl("/error").maximumSessions(1).maxSessionsPreventsLogin(true));
+        http.sessionManagement(smc -> smc.invalidSessionUrl("/error").maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+
+        );
+
+     //   http.sessionManagement(smc -> smc.sessionFixation().none()); -> this will lead to session fixation attack
+        //by default spring security uses sesionfixation.changeSessionId to fix session fixation attack
 
         http.authorizeHttpRequests((requests) -> {
 requests.requestMatchers("/getAccount").authenticated();
