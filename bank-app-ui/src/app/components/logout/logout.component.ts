@@ -5,20 +5,15 @@ import { User } from 'src/app/model/user.model';
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.css']
+  styleUrls: ['./logout.component.css'],
 })
 export class LogoutComponent implements OnInit {
-  
   user = new User();
-  constructor(private router : Router) { 
-
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    window.sessionStorage.setItem("userdetails","");
-    window.sessionStorage.setItem("XSRF-TOKEN","");
+    window.sessionStorage.setItem('userdetails', '');
+    window.sessionStorage.setItem('XSRF-TOKEN', '');
     this.router.navigate(['/login']);
   }
-
-
 }
