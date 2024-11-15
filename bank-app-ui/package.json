@@ -24,6 +24,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "bank-app-ui": "file:",
     "bootstrap": "^5.3.0",
+    "keycloak-angular": "^14.4.0",
+    "keycloak-js": "^24.0.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "typescript-cookie": "^1.0.6",

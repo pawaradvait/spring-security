@@ -16,20 +16,20 @@ public class UserController {
 
     @Autowired
     private CustomerRepo customerRepo;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-@PostMapping("/register")
-    public ResponseEntity<String> createUser(@RequestBody Customer customer) {
-
-    System.out.println(customer.getPwd());
-       customer.setPwd( passwordEncoder.encode(customer.getPwd()));
-
-        customerRepo.save(customer);
-
-        return ResponseEntity.ok("User created successfully");
-    }
+//@PostMapping("/register")
+//    public ResponseEntity<String> createUser(@RequestBody Customer customer) {
+//
+//    System.out.println(customer.getPwd());
+//       customer.setPwd( passwordEncoder.encode(customer.getPwd()));
+//
+//        customerRepo.save(customer);
+//
+//        return ResponseEntity.ok("User created successfully");
+//    }
 
     @GetMapping("/user")
     public ResponseEntity<Customer> createUser() {

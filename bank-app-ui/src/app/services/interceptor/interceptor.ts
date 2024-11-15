@@ -9,28 +9,31 @@ import {
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { User } from 'src/app/model/user.model';
+import { KeycloakService } from 'keycloak-angular';
+import * as Keycloak from 'keycloak-js';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
   user = new User();
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private readonly keycloak: KeycloakService
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let httpHeaders = new HttpHeaders();
-    if (sessionStorage.getItem('userdetails')) {
-      this.user = JSON.parse(sessionStorage.getItem('userdetails')!);
-    }
-    if (this.user && this.user.password && this.user.email) {
-      httpHeaders = httpHeaders.append(
-        'Authorization',
-        'Basic ' + window.btoa(this.user.email + ':' + this.user.password)
-      );
-    }
 
     let xsrf = sessionStorage.getItem('XSRF-TOKEN');
     if (xsrf) {
       httpHeaders = httpHeaders.append('X-XSRF-TOKEN', xsrf);
     }
+
+    let token = this.keycloak.getKeycloakInstance().token;
+    if (token) {
+      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    }
+    console.log('working..');
+
     httpHeaders = httpHeaders.append('X-Requested-With', 'XMLHttpRequest');
     const xhr = req.clone({
       headers: httpHeaders,
